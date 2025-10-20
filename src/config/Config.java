@@ -1,5 +1,7 @@
 package config;
 
+// nao entre!! compartilhei para fins educacionais :)
+
 public final class Config {
     public static final String BD_DRIVER = "org.postgresql.Driver";
     public static final String BD_URL = "jdbc:postgresql://localhost:5432/postgres";
