@@ -1,24 +1,18 @@
 package models;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-// Importa as variáveis estáticas (BD_URL, BD_USUARIO, etc.) da sua classe Config
 import static config.Config.*;
 
-/**
- * Classe que implementa o padrão DAO para a entidade Usuario
- */
+
 public class UsuarioDAO {
 
-    /**
-     * Obtém todos os usuários do banco
-     */
+    // obtem os usuarios do banco
     public List<Usuario> obterTodos() {
         List<Usuario> resultado = new ArrayList<>();
         String sql = "SELECT id, nome, email, senha FROM usuario";
 
-        // try-with-resources garante que tudo será fechado
+
         try (Connection connection = DriverManager.getConnection(BD_URL, BD_USUARIO, BD_SENHA);
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
@@ -35,14 +29,12 @@ public class UsuarioDAO {
         } catch (SQLException ex) {
             System.err.println("Erro ao listar usuários: " + ex.getMessage());
             ex.printStackTrace();
-            // Em caso de erro, retorna a lista vazia (nunca null)
+
         }
         return resultado;
     }
 
-    /**
-     * Obtém um usuário específico pelo ID
-     */
+    // obtem um usuario pelo id
     public Usuario obter(int id) {
         Usuario usuario = null;
         String sql = "SELECT id, nome, email, senha FROM usuario WHERE id = ?";
@@ -69,9 +61,7 @@ public class UsuarioDAO {
         return usuario;
     }
 
-    /**
-     * Insere um novo usuário no banco
-     */
+    // insere um usuario
     public boolean inserir(String nome, String email, String senha) {
         String sql = "INSERT INTO usuario (nome, email, senha) VALUES (?, ?, ?)";
 
@@ -92,9 +82,7 @@ public class UsuarioDAO {
         }
     }
 
-    /**
-     * Atualiza um usuário existente
-     */
+    // atualiza um usuario
     public boolean atualizar(String nome, String email, String senha, int id) {
         String sql = "UPDATE usuario SET nome = ?, email = ?, senha = ? WHERE id = ?";
 
@@ -116,9 +104,7 @@ public class UsuarioDAO {
         }
     }
 
-    /**
-     * Remove um usuário do banco
-     */
+    // remove um usuario
     public boolean remover(int id) {
         String sql = "DELETE FROM usuario WHERE id = ?";
 
